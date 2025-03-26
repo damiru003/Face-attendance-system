@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Attend AI - Attendance Details</title>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+</head>
+<body>
+    <div class="app-container">
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <div class="logo-container">
+                    <h1 class="logo-text">Attend AI</h1>
+                </div>
+            </div>
+            
+            <nav class="navigation">
+                <ul>
+                    <li>
+                        <a href="{{ url_for('index') }}" class="nav-link">
+                            <span class="nav-icon"><i class="fas fa-home"></i></span>
+                            <span class="nav-text">Dashboard</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{{ url_for('register') }}" class="nav-link">
+                            <span class="nav-icon"><i class="fas fa-user-plus"></i></span>
+                            <span class="nav-text">Student Registration</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{{ url_for('take_attendance') }}" class="nav-link">
+                            <span class="nav-icon"><i class="fas fa-camera"></i></span>
+                            <span class="nav-text">Mark Attendance</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{{ url_for('dashboard') }}" class="nav-link active">
+                            <span class="nav-icon"><i class="fas fa-chart-bar"></i></span>
+                            <span class="nav-text">Attendance Details</span>
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+        </aside>
+
+        <main class="main-content">
+            <header class="page-header">
+                <div class="header-content">
+                    <h1 class="page-title">Attendance Details</h1>
+                    <div class="header-actions">
+                        <div class="search-filter">
+                            <input type="text" id="search-input" placeholder="Search students...">
+                            <i class="fas fa-search"></i>
+                        </div>
+                        <div class="filter-dropdown">
+                            <select id="filter-select">
+                                <option value="">All Filters</option>
+                                <option value="today">Today</option>
+                                <option value="this-week">This Week</option>
+                                <option value="this-month">This Month</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+            </header>
+
+            <section class="attendance-summary">
+                <div class="summary-cards">
+                    <div class="summary-card">
+                        <div class="card-icon">
+                            <i class="fas fa-users"></i>
+                        </div>
+                        <div class="card-content">
+                            <h3>Total Students</h3>
+                            <p class="card-number">{{ total_students or 0 }}</p>
+                        </div>
+                    </div>
+                    <div class="summary-card">
+                        <div class="card-icon">
+                            <i class="fas fa-user-check"></i>
+                        </div>
+                        <div class="card-content">
+                            <h3>Present Today</h3>
+                            <p class="card-number">{{ present_today or 0 }}</p>
+                        </div>
+                    </div>
+                    <div class="summary-card">
+                        <div class="card-icon">
+                            <i class="fas fa-chart-pie"></i>
+                        </div>
+                        <div class="card-content">
+                            <h3>Attendance Rate</h3>
+                            <p class="card-number">{{ attendance_rate or '0' }}%</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="attendance-records">
+                {% if records %}
+                    <div class="table-container">
+                        <table class="attendance-table">
+                            <thead>
+                                <tr>
+                                    <th>
+                                        <input type="checkbox" id="select-all">
+                                        <label for="select-all"></label>
+                                    </th>
+                                    <th>Student Name</th>
+                                    <th>Student ID</th>
+                                    <th>Attendance Time</th>
+                                    <th>Emotion & Engagement</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for record in records %}
+                                <tr>
+                                    <td>
+                                        <input type="checkbox" id="record-{{ record.id }}">
+                                        <label for="record-{{ record.id }}"></label>
+                                    </td>
+                                    <td>{{ record.student_name if record.student_name else 'Unknown' }}</td>
+                                    <td>{{ record.student_id }}</td>
+                                    <td>{{ record.time }}</td>
+                                    <td>
+                                        <span class="emotion-badge 
+                                            {% if 'Happy' in record.emotion %}badge-success
+                                            {% elif 'Neutral' in record.emotion %}badge-neutral
+                                            {% else %}badge-warning{% endif %}">
+                                            {{ record.emotion }}
+                                        </span>
+                                    </td>
+                                    <td>
+                                        <div class="action-buttons">
+                                            <button class="btn-action view-details" data-id="{{ record.id }}">
+                                                <i class="fas fa-eye"></i>
+                                            </button>
+                                            <button class="btn-action export-record" data-id="{{ record.id }}">
+                                                <i class="fas fa-download"></i>
+                                            </button>
+                                        </div>
+                                    </td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                {% else %}
+                    <div class="no-records">
+                        <i class="fas fa-database"></i>
+                        <p>No attendance records found.</p>
+                        <a href="{{ url_for('take_attendance') }}" class="btn btn-primary">
+                            <i class="fas fa-camera"></i> Mark Attendance
+                        </a>
+                    </div>
+                {% endif %}
+            </section>
+        </main>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Search functionality
+            const searchInput = document.getElementById('search-input');
+            const table = document.querySelector('.attendance-table');
+            const rows = table ? table.querySelectorAll('tbody tr') : [];
+
+            if (searchInput && rows.length) {
+                searchInput.addEventListener('keyup', function() {
+                    const searchTerm = this.value.toLowerCase();
+                    rows.forEach(row => {
+                        const name = row.querySelector('td:nth-child(2)').textContent.toLowerCase();
+                        const studentId = row.querySelector('td:nth-child(3)').textContent.toLowerCase();
+                        row.style.display = (name.includes(searchTerm) || studentId.includes(searchTerm)) ? '' : 'none';
+                    });
+                });
+            }
+
+            // Select all checkbox
+            const selectAllCheckbox = document.getElementById('select-all');
+            const individualCheckboxes = document.querySelectorAll('.attendance-table tbody input[type="checkbox"]');
+
+            if (selectAllCheckbox && individualCheckboxes.length) {
+                selectAllCheckbox.addEventListener('change', function() {
+                    individualCheckboxes.forEach(checkbox => {
+                        checkbox.checked = this.checked;
+                    });
+                });
+            }
+        });
+    </script>
+</body>
+</html>

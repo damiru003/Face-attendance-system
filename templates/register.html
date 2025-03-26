@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Attend AI - Student Registration</title>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+</head>
+<body>
+    <div class="app-container">
+        <aside class="sidebar">
+            <!-- Sidebar content remains the same -->
+            <div class="sidebar-header">
+                <div class="logo-container">
+                    <h1 class="logo-text">Attend AI</h1>
+                </div>
+            </div>
+            
+            <nav class="navigation">
+                <ul>
+                    <li>
+                        <a href="{{ url_for('index') }}" class="nav-link">
+                            <span class="nav-icon"><i class="fas fa-home"></i></span>
+                            <span class="nav-text">Dashboard</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{{ url_for('register') }}" class="nav-link active">
+                            <span class="nav-icon"><i class="fas fa-user-plus"></i></span>
+                            <span class="nav-text">Student Registration</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{{ url_for('take_attendance') }}" class="nav-link">
+                            <span class="nav-icon"><i class="fas fa-camera"></i></span>
+                            <span class="nav-text">Mark Attendance</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{{ url_for('dashboard') }}" class="nav-link">
+                            <span class="nav-icon"><i class="fas fa-chart-bar"></i></span>
+                            <span class="nav-text">Attendance Details</span>
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+        </aside>
+
+        <main class="main-content">
+            <header class="page-header">
+                <h1 class="page-title">Student Registration</h1>
+            </header>
+
+            <section class="registration-container">
+                {% with messages = get_flashed_messages(with_categories=true) %}
+                    {% if messages %}
+                        <div class="notification-area">
+                            {% for category, message in messages %}
+                                <div class="notification notification-{{ category }}">
+                                    <i class="fas {{ 'fa-check-circle' if category == 'success' else 'fa-exclamation-circle' }}"></i>
+                                    {{ message }}
+                                </div>
+                            {% endfor %}
+                        </div>
+                    {% endif %}
+                {% endwith %}
+
+                <div class="registration-content">
+                    <div class="registration-form-section">
+                        <form method="POST" class="registration-form">
+                            <div class="form-group">
+                                <label for="first_name">First Name</label>
+                                <input type="text" id="first_name" name="first_name" placeholder="Enter first name" required>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="last_name">Last Name</label>
+                                <input type="text" id="last_name" name="last_name" placeholder="Enter last name" required>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="student_id">Student ID</label>
+                                <input type="text" id="student_id" name="student_id" placeholder="Enter student ID" required>
+                            </div>
+
+                            <button type="submit" class="btn btn-primary">
+                                <i class="fas fa-user-plus"></i> Capture & Register
+                            </button>
+                        </form>
+                    </div>
+
+                    <div class="video-section">
+                        <div class="video-container">
+                            <img src="{{ url_for('register_feed') }}" alt="Live Registration Feed" class="live-feed">
+                            <div class="video-overlay">
+                                <i class="fas fa-camera"></i>
+                                <span>AI Face Detection Active</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div>
+</body>
+</html>

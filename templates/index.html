@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Attend AI - Intelligent Attendance System</title>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+</head>
+<body>
+    <div class="app-container">
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <div class="logo-container">
+                    <h1 class="logo-text">Attend AI</h1>
+                </div>
+            </div>
+            
+            <nav class="navigation">
+                <ul>
+                    <li>
+                        <a href="{{ url_for('index') }}" class="nav-link active">
+                            <span class="nav-icon"><i class="fas fa-home"></i></span>
+                            <span class="nav-text">Dashboard</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{{ url_for('register') }}" class="nav-link">
+                            <span class="nav-icon"><i class="fas fa-user-plus"></i></span>
+                            <span class="nav-text">Student Registration</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{{ url_for('take_attendance') }}" class="nav-link">
+                            <span class="nav-icon"><i class="fas fa-camera"></i></span>
+                            <span class="nav-text">Mark Attendance</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{{ url_for('dashboard') }}" class="nav-link">
+                            <span class="nav-icon"><i class="fas fa-chart-bar"></i></span>
+                            <span class="nav-text">Attendance Details</span>
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+        </aside>
+
+        <main class="main-content">
+            <header class="page-header">
+                <div class="header-content">
+                    <h1 class="page-title">Intelligent Attendance System</h1>
+                    <div class="datetime-container">
+                        <div class="time-section" id="time-display">18:20</div>
+                        <div class="date-section">
+                            <div class="day" id="day-display">Tuesday</div>
+                            <div class="full-date" id="date-display">13 June</div>
+                        </div>
+                    </div>
+                </div>
+            </header>
+
+            <section class="dashboard-overview">
+                <p class="system-description">
+                    An advanced AI-powered attendance solution with emotion detection and liveness verification.
+                </p>
+
+                <div class="feature-grid">
+                    <div class="feature-card" onclick="window.location.href='{{ url_for('register') }}'">
+                        <div class="feature-icon">
+                            <i class="fas fa-user-plus"></i>
+                        </div>
+                        <h3 class="feature-title">Register Students</h3>
+                        <p class="feature-description">Easily onboard new students into the system</p>
+                    </div>
+
+                    <div class="feature-card" onclick="window.location.href='{{ url_for('take_attendance') }}'">
+                        <div class="feature-icon">
+                            <i class="fas fa-camera"></i>
+                        </div>
+                        <h3 class="feature-title">Mark Attendance</h3>
+                        <p class="feature-description">Capture attendance with AI-powered recognition</p>
+                    </div>
+
+                    <div class="feature-card" onclick="window.location.href='{{ url_for('dashboard') }}'">
+                        <div class="feature-icon">
+                            <i class="fas fa-chart-bar"></i>
+                        </div>
+                        <h3 class="feature-title">View Attendance</h3>
+                        <p class="feature-description">Analyze and track student attendance</p>
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <script>
+        function updateClock() {
+            const now = new Date();
+            const timeOptions = { hour: '2-digit', minute: '2-digit', hour12: false };
+            const dayOptions = { weekday: 'long' };
+            const dateOptions = { day: '2-digit', month: 'long' };
+    
+            const timeDisplay = now.toLocaleTimeString('en-US', timeOptions);
+            const dayDisplay = now.toLocaleDateString('en-US', dayOptions);
+            const dateDisplay = now.toLocaleDateString('en-US', dateOptions);
+    
+            document.getElementById('time-display').textContent = timeDisplay;
+            document.getElementById('day-display').textContent = dayDisplay;
+            document.getElementById('date-display').textContent = dateDisplay;
+        }
+    
+        // Update immediately and then every second
+        updateClock();
+        setInterval(updateClock, 1000);
+    </script>
+</body>
+</html>
