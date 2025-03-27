@@ -379,6 +379,17 @@ body {
     overflow: hidden;
     box-shadow: var(--box-shadow-elevation-1);
     position: relative;
+    
+    /* Add max-width and max-height to control the size */
+    max-width: 400px; /* Adjust this value to your desired width */
+    width: 100%; /* Ensures responsiveness */
+    margin: 0 auto; /* Centers the frame if needed */
+}
+
+.live-feed {
+    width: 100%;
+    height: auto;
+    object-fit: cover; /* Maintains aspect ratio */
 }
 
 .camera-overlay {
@@ -655,6 +666,7 @@ Last edited just
     background-color: var(--color-accent);
     border-color: var(--color-accent);
 }
+
 
 /* Emotion Badges */
 .emotion-badge {
