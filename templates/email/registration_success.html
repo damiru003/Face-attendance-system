@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registration Successful</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            max-width: 600px;
+            margin: 20px auto;
+            background: linear-gradient(135deg, #4a6cf7, #6a11cb);
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+        }
+        .header {
+            background: #ffffff;
+            padding: 20px;
+            text-align: center;
+        }
+        .header h1 {
+            color: #4a6cf7;
+            margin: 0;
+            font-size: 28px;
+        }
+        .content {
+            padding: 30px;
+            color: #ffffff;
+            text-align: center;
+        }
+        .content h2 {
+            font-size: 24px;
+            margin-bottom: 20px;
+        }
+        .content p {
+            font-size: 16px;
+            line-height: 1.6;
+            margin-bottom: 20px;
+        }
+        .details {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+        }
+        .details p {
+            margin: 5px 0;
+            font-size: 14px;
+        }
+        .footer {
+            background: #ffffff;
+            padding: 10px;
+            text-align: center;
+            font-size: 12px;
+            color: #777;
+        }
+        .footer a {
+            color: #4a6cf7;
+            text-decoration: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>Attend AI</h1>
+        </div>
+        <div class="content">
+            <h2>🎉 Registration Successful! 🎉</h2>
+            <p>Dear {{ first_name }} {{ last_name }},</p>
+            <p>We are excited to inform you that your registration with Attend AI has been successfully completed!</p>
+            <div class="details">
+                <p><strong>Student ID:</strong> {{ student_id }}</p>
+                <p><strong>Registered Name:</strong> {{ first_name }} {{ last_name }}</p>
+                <p><strong>Registration Date:</strong> {{ registration_date }}</p>
+            </div>
+            <p>You can now use the system to mark your attendance using our AI-powered face recognition technology.</p>
+        </div>
+        <div class="footer">
+            <p>&copy; 2025 Attend AI. All rights reserved. | <a href="http://127.0.0.1:5000">Visit Dashboard</a></p>
+        </div>
+    </div>
+</body>
+</html>

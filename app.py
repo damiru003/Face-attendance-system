@@ -1,4 +1,5 @@
 from flask import Flask, render_template, Response, request, redirect, url_for, flash
+from flask_mail import Mail, Message  # Add Flask-Mail imports
 from config import Config
 from models.face_recognition import recognize_faces, load_known_faces, check_liveness
 from models.emotion import detect_emotion
@@ -18,6 +19,9 @@ logger = logging.getLogger(__name__)
 app = Flask(__name__)
 app.config.from_object(Config)
 app.secret_key = app.config['SECRET_KEY']
+
+# Initialize Flask-Mail
+mail = Mail(app)
 
 # Ensure the known_faces directory exists before loading faces
 if not os.path.exists(app.config['KNOWN_FACES_FOLDER']):
@@ -126,14 +130,34 @@ def register():
         first_name = request.form['first_name']
         last_name = request.form['last_name']
         student_id = request.form['student_id']
-        if first_name and last_name and student_id and latest_frame is not None:
+        email = request.form['email']  # New field for email
+        if first_name and last_name and student_id and email and latest_frame is not None:
             try:
                 name = f"{first_name}_{last_name}"
                 filepath = os.path.join(app.config['KNOWN_FACES_FOLDER'], f"{name}.jpg")
                 cv2.imwrite(filepath, latest_frame)
                 register_student(student_id, first_name, last_name)
                 load_known_faces()
-                flash('Student registered successfully!', 'success')
+
+                # Send registration success email
+                registration_date = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+                msg = Message(
+                subject="🎉 Registration Successful - Attend AI",
+                sender=app.config['MAIL_DEFAULT_SENDER'],  # Explicitly define sender
+                recipients=[email],
+                html=render_template(
+                    'email/registration_success.html',
+                    first_name=first_name,
+                    last_name=last_name,
+                    student_id=student_id,
+                    registration_date=registration_date
+                )
+)
+
+                mail.send(msg)
+                logger.debug(f"Sent registration success email to {email}")
+
+                flash('Student registered successfully! A confirmation email has been sent.', 'success')
             except Exception as e:
                 flash(str(e), 'error')
                 return redirect(url_for('register'))

@@ -3,3 +3,4 @@ face_recognition
 deepface
 opencv-python
 numpy
+Flask-Mail 
