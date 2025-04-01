@@ -11,5 +11,5 @@ class Config:
     MAIL_PORT = 587
     MAIL_USE_TLS = True
     MAIL_USERNAME = 'gamagdamir@gmail.com'  # Replace with your Gmail address
-    MAIL_PASSWORD = 'wvcz pndj xict phtz'   # Replace with your Gmail App Password
+    MAIL_PASSWORD = 'evvp gnjl sxkw nhun'   # Replace with your Gmail App Password
     MAIL_DEFAULT_SENDER = MAIL_USERNAME  # **Add this line**

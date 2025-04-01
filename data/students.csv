@@ -1,8 +1,5 @@
 student_id,first_name,last_name,image_path
-1234,Damiru,Gamage,D:\KDU\Computer vision\Facerecognize\static/known_faces\Damiru_Gamage.jpg
-123,Damiru,Gamage,D:\KDU\Computer vision\Facerecognize\static/known_faces\Damiru_Gamage.jpg
 123455,elon ,musk,D:\KDU\Computer vision\Facerecognize\static/known_faces\elon _musk.jpg
-12345,Damiru,Gamage,D:\KDU\Computer vision\Facerecognize\static/known_faces\Damiru_Gamage.jpg
 122,Tom ,david,D:\KDU\Computer vision\Facerecognize\static/known_faces\Tom _david.jpg
 12323,john ,doe,D:\KDU\Computer vision\Facerecognize\static/known_faces\john _doe.jpg
 23123,john ,parker,D:\KDU\Computer vision\Facerecognize\static/known_faces\john _parker.jpg
@@ -12,12 +9,8 @@ student_id,first_name,last_name,image_path
 cs15,criston,pinto,D:\KDU\Computer vision\Facerecognize\known_faces\criston_pinto.jpg
 2325632656,criss,pinto,D:\KDU\Computer vision\Facerecognize\known_faces\criss_pinto.jpg
 11111111111111111,ssssss,sss,D:\KDU\Computer vision\Facerecognize\known_faces\ssssss_sss.jpg
-cs0013,Damiruu,Gamagee,D:\KDU\Computer vision\Facerecognize\known_faces\Damiruu_Gamagee.jpg
-cs13,damir,gam,D:\KDU\Computer vision\Facerecognize\known_faces\damir_gam.jpg
 ce001,randy,aari,D:\KDU\Computer vision\Facerecognize\known_faces\randy_aari.jpg
 cs03,ravindu ,madushanka,D:\KDU\Computer vision\Facerecognize\known_faces\ravindu _madushanka.jpg
-cs00013,damirrrrr,gammmge,D:\KDU\Computer vision\Facerecognize\known_faces\damirrrrr_gammmge.jpg
-cs000013,Damiruuuu,Gamageeee,D:\KDU\Computer vision\Facerecognize\known_faces\Damiruuuu_Gamageeee.jpg
-cs0000013,Damiruuuu,Gamageee,D:\KDU\Computer vision\Facerecognize\known_faces\Damiruuuu_Gamageee.jpg
 th007,Thihan,gamage,D:\KDU\Computer vision\Facerecognize\known_faces\Thihan_gamage.jpg
 P12,pansilu,gamage,D:\KDU\Computer vision\Facerecognize\known_faces\pansilu_gamage.jpg
+CS0013,Damiru,Gamage,D:\KDU\Computer vision\Facerecognize\known_faces\Damiru_Gamage.jpg
